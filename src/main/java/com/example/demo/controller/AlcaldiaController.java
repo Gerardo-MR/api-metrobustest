@@ -32,36 +32,34 @@ public class AlcaldiaController {
     RestTemplate restTemplate;
     @Autowired
     AlcaldiaService alcaldiaService;
-@GetMapping()
-
+    //listado de alcalcdias en base interna 
+    @GetMapping()
     public ArrayList<AlcaldiasModel> obtenerAlcaldias(){
         return alcaldiaService.obtenerAlcaldias();
     }
 
-    
+    //Insertar datos de alcaldia por a based de datos
     @PostMapping()
     public AlcaldiasModel guardarAlcaldia(@RequestBody AlcaldiasModel alcaldia){
         return this.alcaldiaService.guardarAlcaldia(alcaldia);
     }
-
-    /*@GetMapping("/query")
-    public ArrayList<AlcaldiasModel> obtenerAlcaldiaPorNombre(@RequestParam("nombre") String nombre) {
-        return this.alcaldiaService.obtenerAlcaldiaNombre(nombre);
-    }*/
     
-
-    @GetMapping("/query2")
+    
+    //Obtener datos desde api  por id 
+    @GetMapping("/search")
     public String mostrarResultado(@RequestParam("id") String id){
         String url ="https://datos.cdmx.gob.mx/api/3/action/datastore_search?resource_id=e4a9b05f-c480-45fb-a62c-6d4e39c5180e&q="+id;
             return restTemplate.getForObject(url,  String.class);
     }
-    
+    //Traer todos los datos desde api externa
     @GetMapping("/")
     public String mostrarResultado(){
         String url ="https://datos.cdmx.gob.mx/api/3/action/datastore_search?resource_id=e4a9b05f-c480-45fb-a62c-6d4e39c5180e";
         return  restTemplate.getForObject(url,  String.class);
     }
     
+    
+    //Mapear datos resividos desde api externa 
     @GetMapping("/query")
     public String traer(@RequestParam("id") int idGet){
     	 JSONObject json;

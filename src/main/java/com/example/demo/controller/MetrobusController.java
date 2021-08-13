@@ -26,26 +26,28 @@ public class MetrobusController {
 	 @Autowired
 	 RestTemplate restTemplate;
 	 MetrobusService metrobusService;
+	 
 	 //listado de metrobus en base interna 
-	@GetMapping("/list")
-
+	@GetMapping()
 	    public ArrayList<MetrobusModel> obtenerListado(){
 	        return metrobusService.obtenerListadoMetrobus();
 	    }
 
-	    
+	    //Insertar datos de metrobus por metodo post 
 	    @PostMapping()
 	    public MetrobusModel guardarUbicacion(@RequestBody MetrobusModel metrobus){
 	        return this.metrobusService.guardarMetrobus(metrobus);
 	    }
 
-
+	    //Obtener datos desde api  por id 
 	    @GetMapping("/search")
 	    public String mostrarResultado(@RequestParam("id") String id){	    	
 	        String url ="https://datos.cdmx.gob.mx/api/3/action/datastore_search?resource_id=ad360a0e-b42f-482c-af12-1fd72140032e&q="+id;
 	        return restTemplate.getForObject(url,  String.class);
 	    }
 	    
+	    
+	    //Traer todos los datos desde api externa
 	    @GetMapping("/")
 	    public String mostrarResultados(){
 	        String url ="https://datos.cdmx.gob.mx/api/3/action/datastore_search?resource_id=ad360a0e-b42f-482c-af12-1fd72140032e";
@@ -53,7 +55,7 @@ public class MetrobusController {
 	    }
 	    
 	    
-	    
+	    //Mapear datos resividos desde api externa 
 	    @GetMapping("/metrobus")	    
 	    public MetrobusModel traer(@RequestParam("id") int idGet){
 	    	 JSONObject json;
