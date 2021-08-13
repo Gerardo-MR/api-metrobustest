@@ -23,12 +23,13 @@ public class MetrobusService {
     public Optional<MetrobusModel> obtenerPorId(Long id){
         return metrobusRepository.findById(id);
     }
+    
     //Servicio  que perimte obtener desde la base de datos todos los datos del metrobus 
     public ArrayList<MetrobusModel> obtenerListadoMetrobus(){
         return (ArrayList<MetrobusModel>) metrobusRepository.findAll();
     }
     
-    // //Servicio  que perimte registrar datos de una unidad de metrobus segun sea consultada
+    //Servicio  que perimte registrar datos de una unidad de metrobus segun sea consultada
     public MetrobusModel guardarMetrobus(MetrobusModel metrobus){
         return metrobusRepository.save(metrobus);
     }

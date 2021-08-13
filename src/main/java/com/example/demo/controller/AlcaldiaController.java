@@ -37,6 +37,12 @@ public class AlcaldiaController {
     public ArrayList<AlcaldiasModel> obtenerAlcaldias(){
         return alcaldiaService.obtenerAlcaldias();
     }
+    
+    @GetMapping(path = "/{id}")
+    public Optional<AlcaldiasModel> obtenerAlcaldiaPorId(@PathVariable("id") Long id){
+        return this.alcaldiaService.obtenerPorId(id);
+    }
+
 
     //Insertar datos de alcaldia por a based de datos
     @PostMapping()

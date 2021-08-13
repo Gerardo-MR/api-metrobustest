@@ -25,6 +25,7 @@ public class AlcaldiaService {
     public Optional<AlcaldiasModel> obtenerPorId(Long id){
         return alcaldiaRepository.findById(id);
     }
+    
     //Servicio  que perimte obtener desde la base de datos todos los datos de las alcaldias 
     public ArrayList<AlcaldiasModel> obtenerAlcaldias(){
         return (ArrayList<AlcaldiasModel>) alcaldiaRepository.findAll();
