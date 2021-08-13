@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Table(name = "metrobus")
 public class MetrobusModel {
 	
-	  @Id
+	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    @Column(unique = true, nullable = false)
 	    private Long id;
@@ -16,6 +16,7 @@ public class MetrobusModel {
 	   String position_latitude;
 	   String position_longitude;
 	   String identificador;
+	   
 	   
 	public Long getId() {
 		return id;

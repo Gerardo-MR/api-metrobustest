@@ -26,7 +26,7 @@ public class MetrobusController {
 	 @Autowired
 	 RestTemplate restTemplate;
 	 MetrobusService metrobusService;
-	 
+	 //listado de metrobus en base interna 
 	@GetMapping("/list")
 
 	    public ArrayList<MetrobusModel> obtenerListado(){
@@ -41,36 +41,46 @@ public class MetrobusController {
 
 
 	    @GetMapping("/search")
-	    public String mostrarResultado(@RequestParam("id") String id){
-	    	
+	    public String mostrarResultado(@RequestParam("id") String id){	    	
 	        String url ="https://datos.cdmx.gob.mx/api/3/action/datastore_search?resource_id=ad360a0e-b42f-482c-af12-1fd72140032e&q="+id;
 	        return restTemplate.getForObject(url,  String.class);
 	    }
 	    
 	    @GetMapping("/")
-	    public String mostrarResultado(){
+	    public String mostrarResultados(){
 	        String url ="https://datos.cdmx.gob.mx/api/3/action/datastore_search?resource_id=ad360a0e-b42f-482c-af12-1fd72140032e";
 	        return  restTemplate.getForObject(url,  String.class);
 	    }
 	    
-	    @GetMapping("/query")
-	    public String traer(@RequestParam("id") int idGet){
+	    
+	    
+	    @GetMapping("/metrobus")	    
+	    public MetrobusModel traer(@RequestParam("id") int idGet){
 	    	 JSONObject json;
 	    	
-	    	String responseJson= mostrarResultado();
-	    	
+	    	String responseJson= mostrarResultados();	    	
 	    	 json = new JSONObject(responseJson); 	
-	    
-	    	 JSONObject result = json.getJSONObject("result");
+	    	 System.out.println(json);
+	    	 
+	    	JSONObject result = json.getJSONObject("result");
 	    
 	    	 JSONArray records = result.getJSONArray("records");
 	    
 	    	 JSONObject objeto = records.getJSONObject(idGet);
+	    	 System.out.println(objeto.getInt("vehicle_id"));
+	    
 	    	 MetrobusModel metrobus = new MetrobusModel();
-	    	 
-	    	 int vehicle_id = Integer.parseInt( objeto.getString("vehicle_id"));
+	    	
+	         
+	    	 int vehicle_id = objeto.getInt("vehicle_id");
+	            String position_latitude =  objeto.getBigDecimal("position_latitude").toString();
+	            String position_longitude = objeto.getBigDecimal("position_longitude").toString();
+	            
 	    	 metrobus.setVehicle_id(vehicle_id);
-	    	// guardarUbicacion(alcaldia);
-	    	return  "Id del vehiculo:"+vehicle_id;
+	    	 metrobus.setPosition_latitude(position_latitude);
+	    	 metrobus.setPosition_longitude(position_longitude);	    	
+	    	// guardarUbicacion(metrobus);
+	    	 
+	    	return metrobus;
 	    }
 }
