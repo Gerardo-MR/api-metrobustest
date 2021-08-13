@@ -41,8 +41,9 @@ public class MetrobusController {
 	        return this.metrobusService.guardarMetrobus(metrobus);
 	    }
 	    
+	    
 	    @GetMapping(path = "/{id}")
-	    public Optional<MetrobusModel> obtenerAlcaldiaPorId(@PathVariable("id") Long id){
+	    public Optional<MetrobusModel> obtenerMetrobusPorId(@PathVariable("id") Long id){
 	        return this.metrobusService.obtenerPorId(id);
 	    }
 
